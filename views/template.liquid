@@ -1,0 +1,50 @@
+\documentclass[a4paper]{article}
+
+\usepackage[swedish]{babel}
+\usepackage[T1]{fontenc}
+
+\addtolength{\textheight}{4cm}
+\addtolength{\voffset}{-2cm}
+\addtolength{\textwidth}{2cm}
+\addtolength{\hoffset}{-1cm}
+
+{% case document_type %}
+  {% when "motion" %}
+\title{ Motion angående\\{{ title }} }
+  {% when "proposition" %}
+\title{ Proposition angående\\{{ title }} }
+  {% when "reply" %}
+\title{ Motionssvar angående\\{{ title }} }
+  {% else %}
+\title{--\\{{ title }} }
+{% endcase %}
+
+\date{ {{ meeting }} \\ {{ date }} }
+
+\begin{document}
+
+\maketitle
+
+\pagestyle{empty}
+\thispagestyle{empty}
+
+\section*{Bakgrund}
+
+{{ background }}
+
+\section*{Förslag till beslut}
+
+Mot bakgrund av ovanstående yrkar jag:
+
+\begin{list}{\bf att}{}
+{% for item in items %}
+\item {{ item }}
+{% endfor %}
+\end{list}
+
+\vspace{2cm}
+{% for author in authors %}
+\noindent {{ author }}
+{% endfor %}
+
+\end{document}

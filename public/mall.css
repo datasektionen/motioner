@@ -1,0 +1,127 @@
+html, body { height: 100%; }
+
+#content {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin: 0 auto -2em;
+}
+
+footer, .push {
+  height: 2em;
+}
+
+footer {
+  height: 2em;
+  color: #777;
+  width: 640px;
+  text-align: right;
+}
+
+footer p {
+  margin: 0;
+  padding: 0;
+  padding-top: 1em;
+  font-size: .75em;
+  font-style: italic;
+}
+
+footer p a, footer p a:visited, footer p a:active {
+  color: #777;
+}
+
+html, body {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+body {
+  background-color: #eee;
+}
+fieldset {
+  margin: 0px;
+  border: 0;
+  margin-top: 20px;
+}
+
+legend {
+  font-size: 130%;
+  margin: 0;
+}
+
+body {
+  display: box;
+  display: -moz-box;
+  display: -webkit-box;
+  box-orient: vertical;
+  -moz-box-orient: vertical;
+  -webkit-box-orient: vertical;
+  box-align: center;
+  -moz-box-align: center;
+  -webkit-box-align: center;
+  box-pack: stretch;
+  -moz-box-pack: stretch;
+  -webkit-box-pack: stretch;
+}
+
+body div#content {
+  width: 640px;
+  border: 1px solid black;
+  border-width: 0px 1px;
+  padding: 0 .5em;
+  background-color: #fff;
+}
+
+
+div.flex1 {
+  box-flex: 1;
+  -moz-box-flex: 1;
+  -webkit-box-flex: 1;
+}
+
+h1,h3 {
+  text-align: center;
+  font-weight: normal;
+  margin-top: 0;
+}
+
+textarea#background {
+  width: 95%;
+  height: 5em;
+}
+
+input[type=text], #items textarea {
+  border: 1px dotted #ccc;
+  border-bottom: 1px solid black;
+  font-size: 100%;
+}
+
+div.centered {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.right {
+  text-align: right;
+}
+
+ul {
+  list-style: none;
+}
+
+ul li {
+  position: relative;
+}
+
+ul li b {
+  position: absolute;
+  top: 0;
+}
+ul li textarea {
+  margin-left: 3em;
+  width: 480px;
+}
+
+a, a:visited, a:active { color: #339; }
+a:hover {color: #e2007f;}

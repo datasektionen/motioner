@@ -36,8 +36,6 @@
 
 {% if document_type == "motion" %}
 Mot bakgrund av ovanstående yrkar {{i_or_we}}:
-{% else %}
-Mot bakgrund av ovanstående yrkar D-rektoratet genom {{i_or_we}}:
 {% endif %}
 
 \begin{list}{\bf att}{}
@@ -47,6 +45,10 @@ Mot bakgrund av ovanstående yrkar D-rektoratet genom {{i_or_we}}:
 \end{list}
 
 \vspace{2cm}
+
+{% if document_type != "motion" %}
+\noindent D-rektoratet, genom \\
+{% endif%}
 {% for author in authors %}
 \noindent {{ author }}
 {% endfor %}

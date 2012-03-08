@@ -34,7 +34,11 @@
 
 \section*{Förslag till beslut}
 
+{% if document_typ == "motion" %}
 Mot bakgrund av ovanstående yrkar {{i_or_we}}:
+{% else %}
+Mot bakgrund av ovanstående yrkar D-rektoratet genom {{i_or_we}}:
+{% endif %}
 
 \begin{list}{\bf att}{}
 {% for item in items %}

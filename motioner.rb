@@ -13,7 +13,11 @@ class Motioner < Sinatra::Base
     locals = params
     locals["items"] = locals["items"].values
     locals["authors"] = locals["authors"].values
-    locals["i_or_we"] = locals["authors"].length > 1 ? "vi" : "jag"
+    if locals["document_type"] == "motion"
+      locals["i_or_we"] = locals["authors"].length > 1 ? "vi" : "jag"
+    else
+      locals["i_or_we"] = "D-rektoratet"
+    end
     template.render(locals)
   end
 end

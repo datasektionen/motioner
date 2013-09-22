@@ -1,5 +1,5 @@
 require 'sinatra'
-require "liquid"
+require 'liquid'
 
 class Motioner < Sinatra::Base
   get '/' do
@@ -10,10 +10,10 @@ class Motioner < Sinatra::Base
     template = Liquid::Template.parse(File.read(File.join(File.dirname(__FILE__), 'views', 'template.tex.liquid')))
     locals = params
 
-    if locals["document_type"] == "motion"
-      locals["i_or_we"] = locals["authors"].length > 1 ? "vi" : "jag"
+    if locals['document_type'] == 'motion'
+      locals['i_or_we'] = locals['authors'].length > 1 ? 'vi' : 'jag'
     else
-      locals["i_or_we"] = "D-rektoratet"
+      locals['i_or_we'] = 'D-rektoratet'
     end
 
     template.render(locals)

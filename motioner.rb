@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require 'sinatra'
 require 'liquid'
 
@@ -16,6 +18,12 @@ class Motioner < Sinatra::Base
       locals['i_or_we'] = 'D-rektoratet'
     end
 
-    template.render(locals)
+    latex_encode(template.render(locals))
+  end
+
+  private
+
+  def latex_encode(text)
+    text.gsub('§', '\\S')
   end
 end

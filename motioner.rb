@@ -3,11 +3,11 @@ require "liquid"
 
 class Motioner < Sinatra::Base
   get '/' do
-    liquid :layout
+    liquid :'layout.html'
   end
 
   get '/generate', provides: [:text] do
-    template = Liquid::Template.parse(File.read(File.join(File.dirname(__FILE__), 'views', 'template.liquid')))
+    template = Liquid::Template.parse(File.read(File.join(File.dirname(__FILE__), 'views', 'template.tex.liquid')))
     locals = params
 
     if locals["document_type"] == "motion"

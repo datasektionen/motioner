@@ -16,6 +16,7 @@ class Motioner < Sinatra::Base
       locals['i_or_we'] = 'D-rektoratet'
     end
 
+    attachment locals['document_type']+'.tex'
     template.render(locals)
   end
 end

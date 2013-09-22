@@ -10,13 +10,13 @@
 \addtolength{\hoffset}{-1cm}
 
 {% case document_type %}
-  {% when "motion" %}
+{% when "motion" %}
 \title{ Motion angående\\{{ title }} }
-  {% when "proposition" %}
+{% when "proposition" %}
 \title{ Proposition angående\\{{ title }} }
-  {% when "reply" %}
+{% when "reply" %}
 \title{ Motionssvar angående\\{{ title }} }
-  {% else %}
+{% else %}
 \title{--\\{{ title }} }
 {% endcase %}
 

@@ -1,4 +1,5 @@
-motioner
+Motioner
 ========
 
-En Sinatraapplikation för att generera LaTeX-kod för motionsmallar
+En Sinatra-applikation för att generera LaTeX-kod för motioner, motionssvar och
+propositioner.

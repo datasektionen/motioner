@@ -1,0 +1,57 @@
+\documentclass[a4paper]{article}
+
+\usepackage[swedish]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+\addtolength{\textheight}{4cm}
+\addtolength{\voffset}{-2cm}
+\addtolength{\textwidth}{2cm}
+\addtolength{\hoffset}{-1cm}
+
+\BLOCK{ if document_type == 'motion'  }
+	\title{ Motion angående\\ \VAR{ title } }
+\BLOCK{ elif document_type == 'proposition'  }
+	\title{ Proposition angående\\ \VAR{ title } }
+\BLOCK{ elif document_type == 'reply' }
+	\title{ Motionssvar angående\\ \VAR{ title } }
+\BLOCK{ else  }
+	\title{--\\ \VAR{ title } }
+\BLOCK{ endif  }
+
+\date{ \VAR{ meeting }-SM \\  \VAR{ date } }
+
+\begin{document}
+
+\maketitle
+
+\pagestyle{empty}
+\thispagestyle{empty}
+
+\section*{Bakgrund}
+
+ \VAR{ background }
+
+\section*{Förslag till beslut}
+
+\BLOCK{ if document_type == 'motion'  }
+	Mot bakgrund av ovanstående yrkar \VAR{ i_or_we }:
+\BLOCK{ endif }
+
+\begin{list}{\bf att}{}
+\BLOCK{ for item in items  }
+	\item \VAR{ item }
+\BLOCK{ endfor }
+\end{list}
+
+\vspace{2cm}
+
+\BLOCK{ if document_type != 'motion'  }
+	\noindent D-rektoratet, genom \\
+\BLOCK{ endif }
+
+\BLOCK{ for author in authors  }
+	\noindent  \VAR{ author }
+\BLOCK{ endfor }
+
+\end{document}

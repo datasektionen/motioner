@@ -99,7 +99,7 @@
         data: {
           items: [{content:''}],
           authors: [{name:''}],
-          document_type: window.location.pathname.substring(1)
+          document_type: window.location.pathname.substring(1) || 'motion'
         },
         methods: {
           autogrow: function(e) {

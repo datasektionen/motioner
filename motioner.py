@@ -7,6 +7,9 @@ app = Flask(__name__, static_url_path='/static')
 texenv = make_env(loader=app.jinja_loader)
 
 @app.route('/')
+@app.route('/motion')
+@app.route('/proposition')
+@app.route('/reply')
 def index(): return render_template('index.html')
 
 @app.route('/motion.pdf', methods=['POST'])
@@ -23,6 +26,7 @@ def tex():
 
 def get_tex():
     template = texenv.get_template('motion.tex')
+
     if request.form['document_type'] == 'motion':
         i_or_we = 'vi' if len(request.form.getlist('authors[]')) > 1 else 'jag'
     else:

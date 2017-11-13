@@ -5,17 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#0097a7" />
     <title>Motionsmall</title>
-    <script type="text/javascript" src="https://unpkg.com/vue@2.0.3/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue"></script>
     <link rel="stylesheet" href="https://aurora.datasektionen.se/" type="text/css" />
     <script type="text/javascript">
-    window.tbaas_conf = {
-        system_name: "pls",
-        target_id: "tbaas",
-        primary_color: "#7E57C2",
-        secondary_color: "#fff",
-        bar_color: "#673AB7",
-        topbar_items: [
-            { str: "Hem", href: "/" }
+    window.methone_conf = {
+        system_name: "motioner",
+        color_scheme: "deep_purple",
+        links: [
+            { str: "Motion", href: "/motion" },
+            { str: "Proposition", href: "/proposition" },
+            { str: "Motionssvar", href: "/reply" },
         ]
     }
     </script>
@@ -57,7 +56,7 @@
     </style>
   </head>
   <body>
-    <div id="tbaas"></div>
+    <div id="methone-container-replace"></div>
     <div id="application" class="deep-purple">
       <header>
         <div class="header-inner">
@@ -68,7 +67,8 @@
               <h2>Motioner</h2>
             </div>
             <div class="header-right col-md-2">
-              <a href="#" @click="submit" class="primary-action">Generera PDF</a>
+              <a href="#" @click="submittex" class="primary-action">TeX</a>
+              <a href="#" @click="submitpdf" class="primary-action">PDF</a>
             </div>
           </div>
           <div class="clear"></div>
@@ -78,7 +78,7 @@
       <div id="content">
         <form ref="form" action="/motion.pdf" method="POST">
           <h1>
-            <select name="document_type" id="document_type">
+            <select name="document_type" id="document_type" v-model="document_type">
               <option value="motion">Motion</option>
               <option value="proposition">Proposition</option>
               <option value="reply">Svar på motion</option>
@@ -106,7 +106,7 @@
 
             <ul id="items">
               <li v-for="i in items">
-                <b>att</b> 
+                <b>att</b>
                 <textarea @keyup="autogrow" name="items[]" placeholder="Någon bygger webbaserade motionsmallar som kan genera färdig LaTeX-kod åt latmaskarna."></textarea>
               </li>
             </ul>
@@ -134,17 +134,23 @@
         data: {
           items: 1,
           authors: 1,
+          document_type: window.location.pathname.substring(1)
         },
         methods: {
           autogrow: function(e) {
             e.target.style.height = e.target.scrollHeight + 1 + 'px'
           },
-          submit: function() {
+          submittex: function() {
+            this.$refs.form.action = '/motion.tex'
+            this.$refs.form.submit()
+          },
+          submitpdf: function() {
+            this.$refs.form.action = '/motion.pdf'
             this.$refs.form.submit()
           }
         }
       })
     </script>
-    <script type="text/javascript" src="https://methone.datasektionen.se"></script>
+    <script type="text/javascript" src="//methone.datasektionen.se/bar.js"></script>
   </body>
 </html>

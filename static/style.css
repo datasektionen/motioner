@@ -1,0 +1,117 @@
+#frame {
+	font-family: 'Computer Modern Serif';
+	color: #000;
+}
+#frame .page textarea {
+	color: #000;
+	border: none;
+	width: 100%;
+	min-height: 150px;
+}
+#frame .page textarea.att {
+	padding: 0;
+	text-indent: 30px;
+	min-height: 0px;
+	margin-top: -22px;
+	background: transparent;
+}
+#frame .page input {
+	background: #fff;
+	box-shadow: none;
+	border: none;
+	text-align: center;
+	color: #000;
+}
+#frame .page select {
+	background: #fff;
+	border: none;
+	font-size: inherit;
+	appearance: none;
+	-webkit-appearance: none;
+	text-align-last: center;
+	text-align: center;
+	padding: 0;
+	margin: 0;
+}
+
+header {
+	position: fixed;
+	right: 0;
+	left: 0;
+	top: 50px;
+}
+
+#frame {
+	position: relative;
+}
+.page {
+	max-width: 900px;
+	box-shadow: 0 0px 5px rgba(0, 0, 0, 0.2);
+	padding: 80px 120px;
+	font-size: 12pt;
+	margin: 0 auto 50px;
+	position: relative;
+	top: 20px;
+	z-index: 899;
+	background: #fff;
+}
+#frame .page h1 {
+	text-align: center;
+	font-weight: normal;
+	font-size: 1.4em;
+	color: #000;
+	border: none;
+}
+#frame .page h1 input {
+	min-width: 400px;
+}
+#frame .page .meeting {
+	text-align: center;
+	font-weight: normal !important;
+	font-size: 1em;
+	color: #000;
+	border: none;
+}
+#frame .page .meeting label {
+	font-weight: normal !important;
+}
+#frame .page .meeting input.name {
+	text-align: right;
+	width: 70px;
+	margin-bottom: -20px;
+	margin-left: -20px;
+}
+#frame .page .meeting input.date {
+	text-align: center;
+	width: 150px;
+	padding: 0;
+	margin-right: -65px;
+	margin-top: -20px;
+}
+
+
+
+#frame .page h2 {
+	color: #000;
+	border: none;
+}
+
+#frame .page #authors {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+#frame .page #authors input {
+	text-align: left;
+}
+
+@media screen and (max-width: 1132px) {
+	header {
+		position: static;
+	}
+}
+@media screen and (max-width: 800px) {
+	.page {
+		padding: 30px;
+	}
+}

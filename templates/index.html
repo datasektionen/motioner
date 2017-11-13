@@ -18,42 +18,8 @@
         ]
     }
     </script>
-    <style type="text/css">
-      textarea {
-        width: 90%;
-        vertical-align: text-top;
-        margin-left: auto;
-        margin-right: auto;
-        display: block;
-        box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.1);
-      }
-      ul li textarea {
-        display: inline;
-        margin-left: 1em;
-      }
-      h1, h2 {
-        text-align: center;
-      }
-      input, select {
-        padding: 5px;
-        margin-bottom: 10px;
-      }
-
-      h1 {
-        color: #696969 !important;
-      }
-
-      h1 input[type="text"] {
-        width: 90%;
-        text-align: center;
-      }
-
-      h1 select {
-        background: transparent;
-        border: none;
-        box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.1);
-      }
-    </style>
+    <link rel="stylesheet" type="text/css" href="/static/font/cmun-serif.css" />
+    <link rel="stylesheet" type="text/css" href="/static/style.css" />
   </head>
   <body>
     <div id="methone-container-replace"></div>
@@ -62,12 +28,12 @@
         <div class="header-inner">
           <div class="row">
             <div class="header-left col-md-2">
+              <a href="#" @click="submittex" class="primary-action">TeX</a>
             </div>
             <div class="col-md-8">
               <h2>Motioner</h2>
             </div>
             <div class="header-right col-md-2">
-              <a href="#" @click="submittex" class="primary-action">TeX</a>
               <a href="#" @click="submitpdf" class="primary-action">PDF</a>
             </div>
           </div>
@@ -75,56 +41,55 @@
         </div>
       </header>
 
-      <div id="content">
-        <form ref="form" action="/motion.pdf" method="POST">
-          <h1>
-            <select name="document_type" id="document_type" v-model="document_type">
-              <option value="motion">Motion</option>
-              <option value="proposition">Proposition</option>
-              <option value="reply">Svar på motion</option>
-            </select>
-            angående<br>
-            <input type="text" name="title" placeholder="webbaserade motionsmallar">
-          </h1>
+      <div id="frame">
+        <div class="page">
+          <form ref="form" action="/motion.pdf" method="POST">
+            <h1>
+              <select name="document_type" id="document_type" v-model="document_type">
+                <option value="motion">Motion angående</option>
+                <option value="proposition">Proposition angående</option>
+                <option value="reply">Svar på motion angående</option>
+              </select><br>
+              <input type="text" name="title" placeholder="webbaserade motionsmallar">
+            </h1>
 
-          <h2>
-            <input type="text" name="meeting" placeholder="Glögg"><label for="meeting">-SM</label><br>
-            <input type="date" name="date" placeholder="2011-11-21">
-          </h2>
+            <br>
 
-          <div>
-            <h2>Bakgrund</h2>
-            <textarea @keyup="autogrow" name="background" id="background" placeholder="Folk är lata och tycker att det är jobbigt att skriva motioner i ren LaTeX"></textarea>
-          </div>
+            <div class="meeting">
+              <input type="text" name="meeting" placeholder="Glögg" class="name"><label for="meeting">-SM</label><br>
+              <input type="date" name="date" placeholder="2011-11-21" class="date">
+            </div>
 
-          <div>
-            <h2>Förslag till beslut</h2>
+            <div>
+              <h2>Bakgrund</h2>
+              <textarea @keyup="autogrow" name="background" id="background" placeholder="Folk är lata och tycker att det är jobbigt att skriva motioner i ren LaTeX."></textarea>
+            </div>
 
-            <p>
-              Mot bakgrund av ovanstående yrkar jag:
-            </p>
+            <div>
+              <h2>Förslag till beslut</h2>
 
-            <ul id="items">
-              <li v-for="i in items">
-                <b>att</b>
-                <textarea @keyup="autogrow" name="items[]" placeholder="Någon bygger webbaserade motionsmallar som kan genera färdig LaTeX-kod åt latmaskarna."></textarea>
-              </li>
-            </ul>
-            <button class="btn" type="button" @click="items++">Lägg till en att-sats</button>
-            <button class="btn pull-right" type="button" @click="items--" :disabled="items < 2">Ta bort en att-sats</button>
-          </div>
+              <p>
+                Mot bakgrund av ovanstående yrkar jag:
+              </p>
 
-          <div>
-            <h2>Undertecknat:</h2>
-            <ul id="authors">
-              <li v-for="i in authors">
-                <input type="text" name="authors[]" placeholder="Martin Frost">
-              </li>
-            </ul>
-            <button class="btn" type="button" @click="authors++">Lägg till en person</button>
-            <button class="btn pull-right" type="button" @click="authors--" :disabled="authors < 2">Ta bort en person</button>
-          </div>
-        </form>
+              <ul id="items">
+                <li v-for="item, idx in items">
+                  <b>att</b>
+                  <textarea @keyup="keyUpAtt(idx, $event)" class="att" v-bind:name="item.content ? 'items[]' : 'trash'" v-model="item.content" placeholder="fräscha upp motionssystemet och göra det lättare att använda"></textarea>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h2>Undertecknat</h2>
+              <ul id="authors">
+                <li v-for="author, idx in authors">
+                  <input @keyup="keyUpAuthor(idx, $event)" type="text" v-bind:name="author.name ? 'authors[]' : 'trash'" v-model="author.name" placeholder="Jonas Dahl">
+                </li>
+              </ul>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
 
@@ -132,13 +97,26 @@
       new Vue({
         el: '#application',
         data: {
-          items: 1,
-          authors: 1,
+          items: [{content:''}],
+          authors: [{name:''}],
           document_type: window.location.pathname.substring(1)
         },
         methods: {
           autogrow: function(e) {
-            e.target.style.height = e.target.scrollHeight + 1 + 'px'
+            e.target.style.height = e.target.scrollHeight + 'px'
+          },
+          keyUpAtt: function(idx, e) {
+            this.autogrow(e)
+            this.items = this.items.filter((x, idx) => x.content.length > 0 || idx === this.items.length - 1)
+            if (idx === this.items.length - 1 && this.items[idx].content.length > 0) {
+              this.items.push({content:''})
+            }
+          },
+          keyUpAuthor: function(idx, e) {
+            this.authors = this.authors.filter((x, idx) => x.name.length > 0 || idx === this.authors.length - 1)
+            if (idx === this.authors.length - 1 && this.authors[idx].name.length > 0) {
+              this.authors.push({name:''})
+            }
           },
           submittex: function() {
             this.$refs.form.action = '/motion.tex'

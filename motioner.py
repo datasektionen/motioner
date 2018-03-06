@@ -52,6 +52,9 @@ def login():
 @app.route('/motion.pdf', methods=['POST'])
 def pdf():
     try:
+        if 'trash' in request.form:
+            return redirect('/')
+
         pdffile = build_pdf(get_tex())
         return Response(pdffile.stream,
             mimetype='application/pdf',

@@ -80,7 +80,7 @@
 
             <div>
               <h2>Bakgrund</h2>
-              <textarea @keyup="autogrow" name="background" id="background" placeholder="Folk är lata och tycker att det är jobbigt att skriva motioner i ren LaTeX."></textarea>
+              <textarea @keyup="keyUpBackground($event)" name="background" id="background" v-model="background" placeholder="Folk är lata och tycker att det är jobbigt att skriva motioner i ren LaTeX."></textarea>
             </div>
 
             <div>
@@ -115,13 +115,19 @@
       new Vue({
         el: '#application',
         data: {
-          items: [{content:''}],
-          authors: [{name:''}],
+          items: JSON.parse(localStorage.getItem('items')) || [{content:''}],
+          authors: JSON.parse(localStorage.getItem('authors')) || [{name:''}],
+          background: localStorage.getItem('background') || '',
           document_type: window.location.pathname.substring(1) || 'motion'
         },
         methods: {
           autogrow: function(e) {
             e.target.style.height = e.target.scrollHeight + 'px'
+          },
+          keyUpBackground: function(e) {
+            this.autogrow(e)
+
+            localStorage.setItem('background', this.background)
           },
           keyUpAtt: function(idx, e) {
             this.autogrow(e)
@@ -129,12 +135,17 @@
             if (idx === this.items.length - 1 && this.items[idx].content.length > 0) {
               this.items.push({content:''})
             }
+
+
+            localStorage.setItem('items', JSON.stringify(this.items))
           },
           keyUpAuthor: function(idx, e) {
             this.authors = this.authors.filter((x, idx) => x.name.length > 0 || idx === this.authors.length - 1)
             if (idx === this.authors.length - 1 && this.authors[idx].name.length > 0) {
               this.authors.push({name:''})
             }
+
+            localStorage.setItem('authors', JSON.stringify(this.authors))
           },
           submittex: function() {
             this.$refs.form.action = '/motion.tex'

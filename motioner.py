@@ -15,7 +15,9 @@ def index(): return render_template('index.html')
 @app.route('/motion.pdf', methods=['POST'])
 def pdf():
     try:
-        if 'trash' in request.form:
+        if not 'items[]' in request.form:
+            return redirect('/')
+        if not 'authors[]' in request.form:
             return redirect('/')
 
         pdffile = build_pdf(get_tex())

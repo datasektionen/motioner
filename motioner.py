@@ -1,4 +1,4 @@
-from flask import Flask, request, Response, render_template
+from flask import Flask, request, Response, redirect, render_template
 
 from latex import build_pdf, LatexBuildError
 from latex.jinja2 import make_env
@@ -15,6 +15,9 @@ def index(): return render_template('index.html')
 @app.route('/motion.pdf', methods=['POST'])
 def pdf():
     try:
+        if 'trash' in request.form:
+            return redirect('/')
+
         pdffile = build_pdf(get_tex())
         return Response(pdffile.stream, mimetype='application/pdf')
     except LatexBuildError as e:

@@ -15,7 +15,15 @@
             { str: "Motion", href: "/motion" },
             { str: "Proposition", href: "/proposition" },
             { str: "Motionssvar", href: "/reply" },
-        ]
+            { str: "Ändringsyrkande", href: "/change" },
+        ],
+        {% if user %}
+        login_href: '/logout',
+        login_text: 'Logga ut'
+        {% else %}
+        login_href: '/login',
+        login_text: 'Logga in'
+        {% endif %}
     }
     </script>
     <link rel="stylesheet" type="text/css" href="/static/font/cmun-serif.css" />
@@ -23,18 +31,27 @@
   </head>
   <body>
     <div id="methone-container-replace"></div>
+    <script type="text/javascript" src="//methone.datasektionen.se/bar.js"></script>
     <div id="application" class="deep-purple">
       <header>
         <div class="header-inner">
-          <div class="row">
+          <div class="row" style="display: flex; align-items: center">
             <div class="header-left col-md-2">
-              <a href="#" @click="submittex" class="primary-action">TeX</a>
+              <a href="#" @click="submitpdf" class="primary-action">PDF</a>
+              <br>
+              <a href="#" @click="submittex" class="primary-action" style="margin-bottom: 30px;">
+                TeX
+              </a>
             </div>
             <div class="col-md-8">
               <h2>Motioner</h2>
             </div>
             <div class="header-right col-md-2">
-              <a href="#" @click="submitpdf" class="primary-action">PDF</a>
+              {% if user %}
+              <a href="#" @click="sendmail" class="primary-action" style="margin-top: 0;">
+                Maila<br>D-rek
+              </a>
+              {% endif %}
             </div>
           </div>
           <div class="clear"></div>
@@ -43,12 +60,13 @@
 
       <div id="frame">
         <div class="page">
-          <form ref="form" action="/motion.pdf" method="POST">
+          <form ref="form" method="POST">
             <h1>
               <select name="document_type" id="document_type" v-model="document_type">
                 <option value="motion">Motion angående</option>
                 <option value="proposition">Proposition angående</option>
                 <option value="reply">Svar på motion angående</option>
+                <option value="change">Ändringsyrkande för motion angående</option>
               </select><br>
               <input type="text" name="title" placeholder="webbaserade motionsmallar">
             </h1>
@@ -136,10 +154,13 @@
           submitpdf: function() {
             this.$refs.form.action = '/motion.pdf'
             this.$refs.form.submit()
+          },
+          sendmail: function() {
+            this.$refs.form.action = '/mail'
+            this.$refs.form.submit()
           }
         }
       })
     </script>
-    <script type="text/javascript" src="//methone.datasektionen.se/bar.js"></script>
   </body>
 </html>

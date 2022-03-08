@@ -1,2 +1,2 @@
-https://github.com/heroku/heroku-buildpack-python.git
+https://github.com/heroku/heroku-buildpack-python.git#v135
 https://github.com/dkd/heroku-buildpack-tex

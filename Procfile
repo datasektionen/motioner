@@ -1,1 +1,1 @@
-web: gunicorn motioner:app
+web: bash start.sh

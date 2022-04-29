@@ -29,6 +29,9 @@ def pdf():
 def tex():
     return Response(get_tex(), mimetype='application/x-tex')
 
+def convert_newlines(text):
+    return text.replace("\n", "\\\\\n").replace("\r","")
+
 def get_tex():
     template = texenv.get_template('motion.tex')
 
@@ -37,14 +40,17 @@ def get_tex():
     else:
         i_or_we = 'D-rektoratet'
 
+    items = map(convert_newlines, request.form.getlist('items[]'))
+    background = convert_newlines(request.form['background'])
+
     return template.render(
             i_or_we=i_or_we,
             document_type=request.form['document_type'],
             title=request.form['title'],
             meeting=request.form['meeting'],
             date=request.form['date'],
-            background=request.form['background'],
-            items=request.form.getlist('items[]'),
+            background=background,
+            items=items,
             authors=request.form.getlist('authors[]')
         ).replace('§', '\\S')
 

@@ -3,6 +3,7 @@
 \usepackage[swedish]{babel}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
+\usepackage{graphicx}
 
 \addtolength{\textheight}{4cm}
 \addtolength{\voffset}{-2cm}
@@ -38,7 +39,9 @@
 	Mot bakgrund av ovanstående yrkar \VAR{ i_or_we }:
 \BLOCK{ endif }
 
-\begin{list}{\bf att}{}
+\newcounter{attnummer}
+\setcounter{attnummer}{1}
+\begin{list}{\bf att$_{\theattnummer}$\stepcounter{attnummer}}{}
 \BLOCK{ for item in items  }
 	\item \VAR{ item }
 \BLOCK{ endfor }
@@ -51,7 +54,7 @@
 \BLOCK{ endif }
 
 \BLOCK{ for author in authors  }
-	\noindent  \VAR{ author }
+	\noindent  \VAR{ author } \\
 \BLOCK{ endfor }
 
 \end{document}

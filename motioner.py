@@ -40,7 +40,7 @@ def get_tex():
     else:
         i_or_we = 'D-rektoratet'
 
-    items = map(convert_newlines, request.form.getlist('items[]'))
+    items = [convert_newlines(i) for i in request.form.getlist('items[]'))]
     background = convert_newlines(request.form['background'])
 
     return template.render(

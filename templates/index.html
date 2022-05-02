@@ -74,8 +74,13 @@
 
               <ul id="items">
                 <li v-for="item, idx in items">
-                  <b>att</b>
-                  <textarea @keyup="keyUpAtt(idx, $event)" class="att" v-bind:name="item.content ? 'items[]' : 'trash'" v-model="item.content" placeholder="fräscha upp motionssystemet och göra det lättare att använda"></textarea>
+                  <b>att<sub>{{ '{{ idx+1 }}' }}</sub></b>
+                  <textarea @keyup="keyUpAtt(idx, $event)"
+                            class="att"
+                            v-bind:name="item.content ? 'items[]' : 'trash'"
+                            v-model="item.content"
+                            placeholder="fräscha upp motionssystemet och göra det lättare att använda">
+                  </textarea>
                 </li>
               </ul>
             </div>

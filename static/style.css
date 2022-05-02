@@ -7,10 +7,11 @@
 	border: none;
 	width: 100%;
 	min-height: 150px;
+	resize: vertical;
 }
 #frame .page textarea.att {
 	padding: 0;
-	text-indent: 30px;
+	margin-left: 40px;
 	min-height: 0px;
 	margin-top: -22px;
 	background: transparent;

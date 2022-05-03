@@ -75,18 +75,18 @@ header {
 }
 #frame .page .meeting label {
 	font-weight: normal !important;
+	text-align: center;
 }
 #frame .page .meeting input.name {
 	text-align: right;
 	width: 70px;
 	margin-bottom: -20px;
-	margin-left: -20px;
+	margin-left: -50px;
 }
 #frame .page .meeting input.date {
 	text-align: center;
 	width: 150px;
 	padding: 0;
-	margin-right: -65px;
 	margin-top: -20px;
 }
 

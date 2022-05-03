@@ -28,13 +28,30 @@
         <div class="header-inner">
           <div class="row">
             <div class="header-left col-md-2">
-              <a href="#" @click="submittex" class="primary-action">TeX</a>
+              <a href="#" @click="clearContent" class="primary-action">
+                <div class="buttontext">
+                  Clear
+                </div>
+              </a>
             </div>
             <div class="col-md-8">
-              <h2>Motioner</h2>
             </div>
             <div class="header-right col-md-2">
-              <a href="#" @click="submitpdf" class="primary-action">PDF</a>
+              <a href="#" @click="submitpdf" class="primary-action">
+                <div class="buttontext">
+                  PDF
+                </div>
+              </a>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-10"> <h2>Motioner</h2> </div>
+            <div class="header-right col-md-2">
+              <a href="#" @click="submittex" class="primary-action">
+                <div class="buttontext">
+                  TeX
+                </div>
+              </a>
             </div>
           </div>
           <div class="clear"></div>
@@ -43,30 +60,50 @@
 
       <div id="frame">
         <div class="page">
-          <form ref="form" action="/motion.pdf" method="POST">
+          <form ref="form" action="/motion.pdf" method="POST" target="_blank">
             <h1>
               <select name="document_type" id="document_type" v-model="document_type">
                 <option value="motion">Motion angående</option>
                 <option value="proposition">Proposition angående</option>
                 <option value="reply">Svar på motion angående</option>
               </select><br>
-              <input type="text" name="title" placeholder="webbaserade motionsmallar">
+              <input @keyup="keyUpTitle()"
+                     v-model="title"
+                     type="text"
+                     name="title"
+                     placeholder="webbaserade motionsmallar">
             </h1>
 
             <br>
 
             <div class="meeting">
-              <input type="text" name="meeting" placeholder="Glögg" class="name"><label for="meeting">-SM</label><br>
-              <input type="date" name="date" placeholder="2011-11-21" class="date">
+              <input @keyup="keyUpMeeting()"
+                     v-model="meeting"
+                     type="text"
+                     name="meeting"
+                     class="name"
+                     placeholder="Glögg"><label for="meeting">-SM</label>
+              <br>
+              <input @keyup="keyUpDate()"
+                     v-model="date"
+                     type="date"
+                     name="date"
+                     placeholder="2011-11-21"
+                     class="date">
             </div>
 
             <div>
-              <h2>Bakgrund</h2>
-              <textarea @keyup="keyUpBackground($event)" name="background" id="background" v-model="background" placeholder="Folk är lata och tycker att det är jobbigt att skriva motioner i ren LaTeX."></textarea>
+              <h3>Bakgrund</h3>
+              <textarea @keyup="keyUpBackground($event)"
+                        v-model="background"
+                        name="background"
+                        id="background"
+                        placeholder="Folk är lata och tycker att det är jobbigt att skriva motioner i ren LaTeX.">
+              </textarea>
             </div>
 
             <div>
-              <h2>Förslag till beslut</h2>
+              <h3>Förslag till beslut</h3>
 
               <p>
                 Mot bakgrund av ovanstående yrkar jag:
@@ -74,17 +111,26 @@
 
               <ul id="items">
                 <li v-for="item, idx in items">
-                  <b>att</b>
-                  <textarea @keyup="keyUpAtt(idx, $event)" class="att" v-bind:name="item.content ? 'items[]' : 'trash'" v-model="item.content" placeholder="fräscha upp motionssystemet och göra det lättare att använda"></textarea>
+                  <b>att<sub>{{ '{{ idx+1 }}' }}</sub></b>
+                  <textarea @keyup="keyUpAtt(idx, $event)"
+                            v-bind:name="item.content ? 'items[]' : 'trash'"
+                            v-model="item.content"
+                            class="att"
+                            placeholder="fräscha upp motionssystemet och göra det lättare att använda">
+                  </textarea>
                 </li>
               </ul>
             </div>
 
             <div>
-              <h2>Undertecknat</h2>
+              <h3>Undertecknat</h3>
               <ul id="authors">
                 <li v-for="author, idx in authors">
-                  <input @keyup="keyUpAuthor(idx, $event)" type="text" v-bind:name="author.name ? 'authors[]' : 'trash'" v-model="author.name" placeholder="Jonas Dahl">
+                  <input @keyup="keyUpAuthor(idx, $event)"
+                         type="text"
+                         v-bind:name="author.name ? 'authors[]' : 'trash'"
+                         v-model="author.name"
+                         placeholder="Jonas Dahl">
                 </li>
               </ul>
             </div>
@@ -97,6 +143,9 @@
       new Vue({
         el: '#application',
         data: {
+          title: localStorage.getItem('title') || '',
+          meeting: localStorage.getItem('meeting') || '',
+          date: localStorage.getItem('date') || '',
           items: JSON.parse(localStorage.getItem('items')) || [{content:''}],
           authors: JSON.parse(localStorage.getItem('authors')) || [{name:''}],
           background: localStorage.getItem('background') || '',
@@ -106,11 +155,23 @@
           autogrow: function(e) {
             e.target.style.height = e.target.scrollHeight + 'px'
           },
+
+          keyUpTitle: function () {
+            localStorage.setItem('title', this.title)
+          },
+          keyUpMeeting: function () {
+            localStorage.setItem('meeting', this.meeting)
+          },
+          keyUpDate: function() {
+            localStorage.setItem('date', this.date)
+          },
+
           keyUpBackground: function(e) {
             this.autogrow(e)
 
             localStorage.setItem('background', this.background)
           },
+
           keyUpAtt: function(idx, e) {
             this.autogrow(e)
             this.items = this.items.filter((x, idx) => x.content.length > 0 || idx === this.items.length - 1)
@@ -129,6 +190,7 @@
 
             localStorage.setItem('authors', JSON.stringify(this.authors))
           },
+
           submittex: function() {
             this.$refs.form.action = '/motion.tex'
             this.$refs.form.submit()
@@ -136,6 +198,16 @@
           submitpdf: function() {
             this.$refs.form.action = '/motion.pdf'
             this.$refs.form.submit()
+          },
+
+          clearContent: function () {
+            localStorage.removeItem('title')
+            localStorage.removeItem('meeting')
+            localStorage.removeItem('date')
+            localStorage.removeItem('background')
+            localStorage.removeItem('items')
+            localStorage.removeItem('authors')
+            window.location.reload();
           }
         }
       })

@@ -7,10 +7,11 @@
 	border: none;
 	width: 100%;
 	min-height: 150px;
+	resize: vertical;
 }
 #frame .page textarea.att {
 	padding: 0;
-	text-indent: 30px;
+	margin-left: 40px;
 	min-height: 0px;
 	margin-top: -22px;
 	background: transparent;
@@ -39,6 +40,11 @@ header {
 	right: 0;
 	left: 0;
 	top: 50px;
+}
+
+.buttontext {
+	width: 45px;
+	text-align: center;
 }
 
 #frame {
@@ -74,18 +80,18 @@ header {
 }
 #frame .page .meeting label {
 	font-weight: normal !important;
+	text-align: center;
 }
 #frame .page .meeting input.name {
 	text-align: right;
 	width: 70px;
 	margin-bottom: -20px;
-	margin-left: -20px;
+	margin-left: -50px;
 }
 #frame .page .meeting input.date {
 	text-align: center;
 	width: 150px;
 	padding: 0;
-	margin-right: -65px;
 	margin-top: -20px;
 }
 

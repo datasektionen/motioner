@@ -93,7 +93,7 @@
             </div>
 
             <div>
-              <h2>Bakgrund</h2>
+              <h3>Bakgrund</h3>
               <textarea @keyup="keyUpBackground($event)"
                         v-model="background"
                         name="background"
@@ -103,7 +103,7 @@
             </div>
 
             <div>
-              <h2>Förslag till beslut</h2>
+              <h3>Förslag till beslut</h3>
 
               <p>
                 Mot bakgrund av ovanstående yrkar jag:
@@ -123,7 +123,7 @@
             </div>
 
             <div>
-              <h2>Undertecknat</h2>
+              <h3>Undertecknat</h3>
               <ul id="authors">
                 <li v-for="author, idx in authors">
                   <input @keyup="keyUpAuthor(idx, $event)"

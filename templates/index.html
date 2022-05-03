@@ -125,9 +125,9 @@
       new Vue({
         el: '#application',
         data: {
-          title: localStorage.getItem('title'),
-          meeting: localStorage.getItem('meeting'),
-          date: localStorage.getItem('date'),
+          title: localStorage.getItem('title') || '',
+          meeting: localStorage.getItem('meeting') || '',
+          date: localStorage.getItem('date') || '',
           items: JSON.parse(localStorage.getItem('items')) || [{content:''}],
           authors: JSON.parse(localStorage.getItem('authors')) || [{name:''}],
           background: localStorage.getItem('background') || '',
@@ -153,6 +153,7 @@
 
             localStorage.setItem('background', this.background)
           },
+
           keyUpAtt: function(idx, e) {
             this.autogrow(e)
             this.items = this.items.filter((x, idx) => x.content.length > 0 || idx === this.items.length - 1)
@@ -171,6 +172,7 @@
 
             localStorage.setItem('authors', JSON.stringify(this.authors))
           },
+
           submittex: function() {
             this.$refs.form.action = '/motion.tex'
             this.$refs.form.submit()
@@ -178,6 +180,15 @@
           submitpdf: function() {
             this.$refs.form.action = '/motion.pdf'
             this.$refs.form.submit()
+          },
+
+          clearContent: function () {
+            localStorage.removeItem('title')
+            localStorage.removeItem('meeting')
+            localStorage.removeItem('date')
+            localStorage.removeItem('background')
+            localStorage.removeItem('items')
+            localStorage.removeItem('authors')
           }
         }
       })

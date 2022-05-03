@@ -28,13 +28,26 @@
         <div class="header-inner">
           <div class="row">
             <div class="header-left col-md-2">
-              <a href="#" @click="submittex" class="primary-action">TeX</a>
+              <a href="#" @click="clearContent" class="primary-action">Clear</a>
             </div>
             <div class="col-md-8">
-              <h2>Motioner</h2>
             </div>
             <div class="header-right col-md-2">
-              <a href="#" @click="submitpdf" class="primary-action">PDF</a>
+              <a href="#" @click="submitpdf" class="primary-action">
+                <div style="width:35px; text-align: center;">
+                  PDF
+                </div>
+              </a>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-10"> <h2>Motioner</h2> </div>
+            <div class="header-right col-md-2">
+              <a href="#" @click="submittex" class="primary-action">
+                <div style="width:35px; text-align: center;">
+                  TeX
+                </div>
+              </a>
             </div>
           </div>
           <div class="clear"></div>
@@ -189,6 +202,7 @@
             localStorage.removeItem('background')
             localStorage.removeItem('items')
             localStorage.removeItem('authors')
+            window.location.reload();
           }
         }
       })

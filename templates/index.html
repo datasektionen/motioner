@@ -50,19 +50,38 @@
                 <option value="proposition">Proposition angående</option>
                 <option value="reply">Svar på motion angående</option>
               </select><br>
-              <input type="text" name="title" placeholder="webbaserade motionsmallar">
+              <input @keyup="keyUpTitle()"
+                     v-model="title"
+                     type="text"
+                     name="title"
+                     placeholder="webbaserade motionsmallar">
             </h1>
 
             <br>
 
             <div class="meeting">
-              <input type="text" name="meeting" placeholder="Glögg" class="name"><label for="meeting">-SM</label><br>
-              <input type="date" name="date" placeholder="2011-11-21" class="date">
+              <input @keyup="keyUpMeeting()"
+                     v-model="meeting"
+                     type="text"
+                     name="meeting" class="name"
+                     placeholder="Glögg"><label for="meeting">-SM</label>
+              <br>
+              <input @keyup="keyUpDate()"
+                     v-model="date"
+                     type="date"
+                     name="date"
+                     placeholder="2011-11-21"
+                     class="date">
             </div>
 
             <div>
               <h2>Bakgrund</h2>
-              <textarea @keyup="keyUpBackground($event)" name="background" id="background" v-model="background" placeholder="Folk är lata och tycker att det är jobbigt att skriva motioner i ren LaTeX."></textarea>
+              <textarea @keyup="keyUpBackground($event)"
+                        v-model="background"
+                        name="background"
+                        id="background"
+                        placeholder="Folk är lata och tycker att det är jobbigt att skriva motioner i ren LaTeX.">
+              </textarea>
             </div>
 
             <div>
@@ -76,9 +95,9 @@
                 <li v-for="item, idx in items">
                   <b>att<sub>{{ '{{ idx+1 }}' }}</sub></b>
                   <textarea @keyup="keyUpAtt(idx, $event)"
-                            class="att"
                             v-bind:name="item.content ? 'items[]' : 'trash'"
                             v-model="item.content"
+                            class="att"
                             placeholder="fräscha upp motionssystemet och göra det lättare att använda">
                   </textarea>
                 </li>
@@ -89,7 +108,11 @@
               <h2>Undertecknat</h2>
               <ul id="authors">
                 <li v-for="author, idx in authors">
-                  <input @keyup="keyUpAuthor(idx, $event)" type="text" v-bind:name="author.name ? 'authors[]' : 'trash'" v-model="author.name" placeholder="Jonas Dahl">
+                  <input @keyup="keyUpAuthor(idx, $event)"
+                         type="text"
+                         v-bind:name="author.name ? 'authors[]' : 'trash'"
+                         v-model="author.name"
+                         placeholder="Jonas Dahl">
                 </li>
               </ul>
             </div>
@@ -102,6 +125,9 @@
       new Vue({
         el: '#application',
         data: {
+          title: localStorage.getItem('title'),
+          meeting: localStorage.getItem('meeting'),
+          date: localStorage.getItem('date'),
           items: JSON.parse(localStorage.getItem('items')) || [{content:''}],
           authors: JSON.parse(localStorage.getItem('authors')) || [{name:''}],
           background: localStorage.getItem('background') || '',
@@ -111,6 +137,17 @@
           autogrow: function(e) {
             e.target.style.height = e.target.scrollHeight + 'px'
           },
+
+          keyUpTitle: function () {
+            localStorage.setItem('title', this.title)
+          },
+          keyUpMeeting: function () {
+            localStorage.setItem('meeting', this.meeting)
+          },
+          keyUpDate: function() {
+            localStorage.setItem('date', this.date)
+          },
+
           keyUpBackground: function(e) {
             this.autogrow(e)
 

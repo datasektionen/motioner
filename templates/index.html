@@ -28,13 +28,17 @@
         <div class="header-inner">
           <div class="row">
             <div class="header-left col-md-2">
-              <a href="#" @click="clearContent" class="primary-action">Clear</a>
+              <a href="#" @click="clearContent" class="primary-action">
+                <div class="buttontext">
+                  Clear
+                </div>
+              </a>
             </div>
             <div class="col-md-8">
             </div>
             <div class="header-right col-md-2">
               <a href="#" @click="submitpdf" class="primary-action">
-                <div style="width:35px; text-align: center;">
+                <div class="buttontext">
                   PDF
                 </div>
               </a>
@@ -44,7 +48,7 @@
             <div class="col-md-10"> <h2>Motioner</h2> </div>
             <div class="header-right col-md-2">
               <a href="#" @click="submittex" class="primary-action">
-                <div style="width:35px; text-align: center;">
+                <div class="buttontext">
                   TeX
                 </div>
               </a>
@@ -76,7 +80,8 @@
               <input @keyup="keyUpMeeting()"
                      v-model="meeting"
                      type="text"
-                     name="meeting" class="name"
+                     name="meeting"
+                     class="name"
                      placeholder="Glögg"><label for="meeting">-SM</label>
               <br>
               <input @keyup="keyUpDate()"

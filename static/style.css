@@ -42,6 +42,11 @@ header {
 	top: 50px;
 }
 
+.buttontext {
+	width: 45px;
+	text-align: center;
+}
+
 #frame {
 	position: relative;
 }

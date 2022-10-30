@@ -12,6 +12,8 @@
 
 \BLOCK{ if document_type == 'motion'  }
 	\title{ Motion angående\\ \VAR{ title } }
+\BLOCK{ elif document_type == 'yrkande'  }
+	\title{ Ändringsyrkande på motion angående\\ \VAR{ title } }
 \BLOCK{ elif document_type == 'proposition'  }
 	\title{ Proposition angående\\ \VAR{ title } }
 \BLOCK{ elif document_type == 'reply' }
@@ -20,7 +22,7 @@
 	\title{--\\ \VAR{ title } }
 \BLOCK{ endif  }
 
-\date{ \VAR{ meeting }-SM \\  \VAR{ date } }
+\date{ \VAR{ meeting }-SM \\  \VAR{ date } } % datum för SM
 
 \begin{document}
 
@@ -35,7 +37,7 @@
 
 \section*{Förslag till beslut}
 
-\BLOCK{ if document_type == 'motion'  }
+\BLOCK{ if document_type == 'motion' or document_type == 'yrkande' }
 	Mot bakgrund av ovanstående yrkar \VAR{ i_or_we }:
 \BLOCK{ endif }
 

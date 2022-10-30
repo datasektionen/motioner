@@ -13,6 +13,7 @@
         color_scheme: "deep_purple",
         links: [
             { str: "Motion", href: "/motion" },
+            { str: "Ändringsyrkande", href: "/yrkande" },
             { str: "Proposition", href: "/proposition" },
             { str: "Motionssvar", href: "/reply" },
         ]
@@ -64,6 +65,7 @@
             <h1>
               <select name="document_type" id="document_type" v-model="document_type">
                 <option value="motion">Motion angående</option>
+                <option value="yrkande">Ändringsyrkande på motion angående</option>
                 <option value="proposition">Proposition angående</option>
                 <option value="reply">Svar på motion angående</option>
               </select><br>

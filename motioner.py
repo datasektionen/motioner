@@ -8,6 +8,7 @@ texenv = make_env(loader=app.jinja_loader)
 
 @app.route('/')
 @app.route('/motion')
+@app.route('/yrkande')
 @app.route('/proposition')
 @app.route('/reply')
 def index(): return render_template('index.html')
@@ -35,7 +36,7 @@ def convert_newlines(text):
 def get_tex():
     template = texenv.get_template('motion.tex')
 
-    if request.form['document_type'] == 'motion':
+    if request.form['document_type'] in ['motion', 'yrkande']:
         i_or_we = 'vi' if len(request.form.getlist('authors[]')) > 1 else 'jag'
     else:
         i_or_we = 'D-rektoratet'
